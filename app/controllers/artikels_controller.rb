@@ -1,4 +1,6 @@
 class ArtikelsController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+  before_filter :restrict_access
   before_action :set_artikel, only: [:show, :update, :destroy]
 
   # GET /artikels
@@ -55,5 +57,11 @@ class ArtikelsController < ApplicationController
 
     def artikel_params
       params.require(:artikel).permit(:title, :content)
+    end
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        ApiKey.exists?(token: token)
+      end
     end
 end

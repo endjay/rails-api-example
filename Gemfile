@@ -11,6 +11,8 @@ gem 'spring', :group => :development
 gem 'sqlite3'
 gem 'devise'
 
+gem 'bcrypt' 
+
 
 
 # To use ActiveModel has_secure_password

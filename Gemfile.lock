@@ -117,6 +117,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   devise
   rails (= 4.2.4)
   rails-api

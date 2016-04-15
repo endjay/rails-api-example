@@ -1,5 +1,3 @@
-require 'securerandom'
-
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :update, :destroy]
 
@@ -49,6 +47,16 @@ class ClientsController < ApplicationController
     head :no_content
   end
 
+  def generate_token
+    @token = ApiKey.create
+
+    if @token.save
+      render json: @token, status: :created
+    else
+      render json: @token.errors, status: unprocessable_entity
+    end
+  end
+
   private
 
     def set_client
@@ -57,5 +65,9 @@ class ClientsController < ApplicationController
 
     def client_params
       params.require(:client).permit(:app_name)
+    end
+
+    def token_params
+      params.require(:client).permit(:app_id, :app_secret)
     end
 end

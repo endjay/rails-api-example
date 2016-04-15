@@ -52,6 +52,15 @@ RSpec.describe ClientsController, type: :controller do
     end
   end
 
+  describe "POST #generate_token" do
+    context "with valid params" do
+      it "generate a new token" do
+        post :generate_token, { :client => valid_attributes }, valid_session
+        expect(assigns(:client)).to be_persisted
+      end
+    end
+  end
+
   describe "POST #create" do
     context "with valid params" do
       it "creates a new Client" do

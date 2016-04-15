@@ -6,5 +6,5 @@ class ApiKey < ActiveRecord::Base
       begin
         self.token = SecureRandom.hex
       end while self.class.exists?(token: token)
-  end
+    end
 end

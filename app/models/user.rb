@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   require 'digest/sha1'
+  has_many :access_login
   attr_accessor :password
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :username, :presence => true, :uniqueness => true, :length => { :in => 3..20 }
@@ -15,19 +16,30 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.authenticate(username_or_email="", password="")
+  def self.authenticate(username_or_email="", password="",app_id="",app_secret="")
     if  EMAIL_REGEX.match(username_or_email)
       user = User.find_by_email(username_or_email)
     else
       user = User.find_by_username(username_or_email)
     end
     if user && user.match_password(password)
-      return user
+      client = Client.find_by(app_id:app_id,app_secret:app_secret)
+      if client
+        access_login = AccessLogin.find_by(user_id:user[:id],client_id:client[:id])
+        if access_login
+          return access_login
+        else
+          return false
+        end
+      else
+        return false
+      end
     else
       return false
     end
+
   end
-  
+
   def match_password(password="")
     magic_word == Digest::SHA1.hexdigest(password)
   end

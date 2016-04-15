@@ -53,13 +53,14 @@ class UsersController < ApplicationController
 
   def login
 
-    authorized_user = User.authenticate(params[:username_or_email],params[:password])
+    authorized_user = User.authenticate(params[:username_or_email],params[:password],params[:app_id],params[:app_secret])
     if authorized_user
-      puts "{#{authorized_user.magic_word}}"
+      #token = ApiKey.generate_token(authorized_user)
+      puts "{#{authorized_user}}"
     else
       puts "gagal bo"
     end
-    
+
   end
 
 

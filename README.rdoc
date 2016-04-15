@@ -1,5 +1,5 @@
-== RAILS API example withOauth login and role per each user 
+== RAILS API with User Authentication generated Token multi client and multi roles per client
 
-this is an example setup for api using rails-api gem , complete with user authentication  and role for each user 
-
-
+This repository is a package rails-api with a working simple authentication to generate token,
+if you are developing API for multi client and need multi roles for the API you can use this repository
+for starting.

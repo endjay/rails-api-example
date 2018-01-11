@@ -2,6 +2,6 @@
 
 basically this is a ruby on rails with rails api gem , and i just create user oauth layer to access the api cause is open for public on default.
 
-so if you guys wanna build api from rails just pull the repo. thanks
+so if you guys wanna build api from rails just clone the repo. thanks
 
 
